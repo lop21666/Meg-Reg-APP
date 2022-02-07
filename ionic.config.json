@@ -1,0 +1,8 @@
+{
+  "name": "mec-reg-app",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,78 @@
+ion-content{
+    --background:linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+        ), url('../../assets/images/bgbusiness.jpg') no-repeat center center / cover;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .header {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    padding-top: 10%;
+    padding-bottom: 70px;
+    }
+    
+    .img {
+    height: 67%;
+    width: 67%;
+    margin-left: 17%;
+    }
+
+    
+    .body {
+    padding-top: 6%;
+    padding-bottom: 6%;
+    padding-right: 3%;
+    padding-left: 3%;
+    background-color: #FFF;
+    }
+    
+    ion-item {
+    --border-color: transparent !important;
+    --background: #f3f3f3;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    margin-top: 1px;
+    }
+    
+    ion-icon {
+        color: #1a529f;
+    }
+    
+    ion-input {
+    --color: black;
+    }
+    
+    ion-list {
+    background-color: #FFF;
+    padding-top: 2%;
+    }
+    
+    .button-1{
+    --background:#1a529f;
+    margin-top: 10%;
+    }
+    
+    ion-toolbar{
+    --background: white; 
+    }
+    
+    .icono{
+    color: white;
+    }
+    
+    ion-title{
+    color: #1a529f;
+    }
+    
+    .error-container{
+    color: #66615B;
+    }

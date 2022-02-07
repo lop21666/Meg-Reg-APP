@@ -1,0 +1,49 @@
+<ion-header *ngIf="viewEntered">
+  <ion-toolbar style="--background: #1a529f">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" color="light">Atrás
+        <ion-icon slot="start" name="arrow-back-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">Referencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="viewEntered">
+<br>
+  <ion-item-group>
+    <ion-badge color="primary" style="margin-left: 15px; font-size: 15px; padding: 7px; background: #3161a5;">Actor : </ion-badge>
+    <ion-card style="margin-top: 10px;">
+      <ion-item>
+        <ion-label>{{ item.actor }}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-badge color="primary" style="margin-left: 15px; font-size: 15px; padding: 7px; background: #3161a5;">Acción : </ion-badge>
+    <ion-card style="margin-top: 10px;">
+      <ion-item>
+        <ion-label class="ion-text-wrap">{{item.accion}}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-badge color="primary" style="margin-left: 15px; font-size: 15px; padding: 7px; background: #3161a5;">Procedimiento : </ion-badge>
+    <ion-card style="margin-top: 10px;">
+      <ion-item>
+        <ion-label class="ion-text-wrap">{{item.procedimiento}}</ion-label>
+      </ion-item>
+    </ion-card>
+    
+    <ion-badge color="primary" style="margin-left: 15px; font-size: 15px; padding: 7px; background: #3161a5;">Referencia : </ion-badge>
+    <ion-card style="margin-top: 10px;">
+      <ion-item>
+        <ion-label class="ion-text-wrap">{{item.referencia}}</ion-label>
+      </ion-item>
+    </ion-card>   
+  </ion-item-group>
+
+  <br>
+  <div align="center" (click)="verpdf(item.url)">
+    <img src="../../assets/images/PDF.png" style="width: 30%;">
+  </div>
+
+</ion-content>

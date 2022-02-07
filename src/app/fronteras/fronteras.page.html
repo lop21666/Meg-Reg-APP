@@ -1,0 +1,54 @@
+<ion-header *ngIf="viewEntered">
+  <ion-toolbar style="--background: #1a529f">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" color="light">Atrás
+        <ion-icon slot="start" name="arrow-back-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">Fronteras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="viewEntered">
+
+  <br>
+  <ion-badge color="primary" style="    margin-left: 15px; font-size: 15px; padding: 7px;  background: #3161a5;">Fronteras: </ion-badge>
+
+
+  <ion-card *ngFor="let frontera of fronteras" class="ion-activatable" (click)="cambiarDeSituacion(frontera, frontera.frontera, frontera.notificacion, frontera.situacion)">
+    <ion-card-header>
+      <ion-card-subtitle>{{frontera.situacion_descripcion}}</ion-card-subtitle>
+      <ion-card-title>{{frontera.frontera_nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h3>{{frontera.fecha_estimada}}</h3>
+      <h3>{{frontera.responsable}}</h3>
+      <p>recomendaciones</p>
+    </ion-card-content>
+    <ion-ripple-effect type="bounded"></ion-ripple-effect>
+  </ion-card>
+
+  <br>
+  <ion-badge color="primary" style="margin-left: 15px; font-size: 15px; padding: 7px; background: #3161a5;" *ngIf="documentos.length !== 0" >Documentos: </ion-badge>
+  <br>
+
+
+  <ion-card *ngFor="let documento of documentos">
+
+    <ion-row (click)="verpdf(documento.url)">
+      <ion-col size="0.4">
+      </ion-col>
+      <ion-col size="2" style="padding: 3px;">
+        <div>
+          <img src="../../assets/images/PDF.png" style="width: 80%;">
+        </div>
+      </ion-col>
+      <ion-col size="9.6">
+        <div style="margin-top: 6%;">
+          <ion-label>{{documento.titulo}}</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

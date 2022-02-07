@@ -1,0 +1,86 @@
+<ion-header *ngIf="viewEntered">
+  <ion-toolbar style="--background: #1a529f">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" color="light">Atrás
+        <ion-icon slot="start" name="arrow-back-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">Fase {{fase}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="viewEntered">
+
+  <div style="background-color: #1a529f;
+                margin-top: 20px;
+                margin-left: 7px;
+                margin-right: 7px;
+                border-radius: 15px;">
+  <br>
+
+  <ion-card style="margin-top: 5px; margin-bottom: 5px;">
+    <ion-item style="padding-right: 4%; padding-left: 4%;">
+      <ion-icon slot="start" name="globe-outline"></ion-icon>
+      <ion-label>País</ion-label>
+      <ion-select (ionChange)="getPais($event)">
+        <ion-select-option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item style="padding-right: 4%; padding-left: 4%;">
+      <ion-icon slot="start" name="ellipsis-horizontal-circle-outline"></ion-icon>
+      <ion-label>Actor</ion-label>
+      <ion-select (ionChange)="getActor($event)">
+        <ion-select-option *ngFor="let actor of actores" [value]="actor.codigo">{{actor.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <br>
+  </div>
+
+  <ion-row style="margin-top: 5px;">
+    <ion-col size="3"></ion-col>
+    <ion-col size="6">
+      <ion-button  expand="block" shape="round" (click)="buscar()" color="primary">
+        <ion-icon slot="start" name="search"></ion-icon>
+        Buscar
+      </ion-button>
+    </ion-col>
+    <ion-col size="3"></ion-col>
+  </ion-row>
+
+
+<br>
+
+  <div *ngIf="mostrarLista" >
+
+    <div *ngIf="referencias.length === 0" >
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle class="ion-text-center">No hay resultados a la busqueda</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </div>
+
+    <div *ngIf="referencias.length !== 0">
+      <ion-list>
+        <ion-item *ngFor="let referencia of referencias" style=" margin-left: 5px; margin-right: 5px;" lines="full" (click)="Item(referencia)">
+          <!--<ion-button style=" --border-radius: 20px; height: 35px; --background: #1a529f; color: black; --background-activated: black;
+          --color-activated: white;" (click)="verpdf(referencia.url)">
+          <ion-icon slot="icon-only" name="document-attach" color="light"></ion-icon>
+          </ion-button> -->
+          <ion-item detail>
+            <ion-label>
+              <h2>{{referencia.actor}}</h2>
+              <h3>{{referencia.accion}}</h3>
+              <h3>{{referencia.procedimiento}}</h3>
+              <p>{{referencia.referencia}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+
+</ion-content>
