@@ -4,6 +4,7 @@ import { CepredenacService } from '../services/cepredenac.service';
 import { PdfPage } from '../pdf/pdf.page';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DetailItemPage } from '../detail-item/detail-item.page';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-detail-biblioteca',
@@ -25,18 +26,30 @@ export class DetailBibliotecaPage implements OnInit {
 
 
   constructor(public modalController: ModalController, private cepredenacService: CepredenacService,
-              public loadingController: LoadingController, private sanitizer: DomSanitizer) { }
+              public loadingController: LoadingController, private sanitizer: DomSanitizer, private alertService: AlertService) { }
 
   async ionViewDidEnter() {
-    (await this.cepredenacService.getPaises()).subscribe((resp: any) =>{
-      this.paises = resp.data;
+    (await this.cepredenacService.getPaises()).subscribe((resp: any) => {
+      if (resp.status){
+        this.paises = resp.data;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
-    (await this.cepredenacService.getActores()).subscribe((resp: any) =>{
-      this.actores = resp.data;
+    (await this.cepredenacService.getActores()).subscribe((resp: any) => {
+      if (resp.status){
+        this.actores = resp.data;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
 
     (await this.cepredenacService.getReferencias(this.fase, this.actor, this.pais)).subscribe((resp: any)=>{
-      this.referencias = resp.data;
+      if (resp.status){
+        this.referencias = resp.data;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
     this.viewEntered = true;
     setTimeout(() => {
@@ -67,8 +80,12 @@ export class DetailBibliotecaPage implements OnInit {
   async buscar(){
     await this.presentLoading();
     (await this.cepredenacService.getReferencias(this.fase, this.actor, this.pais)).subscribe((resp: any) => {
-      this.referencias = resp.data;
-      this.mostrarLista = true;
+      if (resp.status){
+        this.referencias = resp.data;
+        this.mostrarLista = true;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
       this.loadingController.dismiss();
     });
   }

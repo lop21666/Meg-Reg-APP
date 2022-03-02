@@ -3,6 +3,7 @@ import { CepredenacService } from '../services/cepredenac.service';
 import { format, parseISO } from 'date-fns';
 import { ModalController, NavController, LoadingController } from '@ionic/angular';
 import { FronterasPage } from '../fronteras/fronteras.page';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-transito',
@@ -19,11 +20,16 @@ export class TransitoPage implements OnInit {
   mostrarLista = false;
 
   constructor(private cepredenacService: CepredenacService, private modalController: ModalController,
-              private navController: NavController, public loadingController: LoadingController) { }
+              private navController: NavController, public loadingController: LoadingController,
+              private alertService: AlertService) { }
 
   async ionViewWillEnter(){
-    (await this.cepredenacService.getPaises()).subscribe((resp: any) =>{
-      this.paises = resp.data;
+    (await this.cepredenacService.getPaises()).subscribe((resp: any) => {
+      if (resp.status){
+        this.paises = resp.data;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
   }
 
@@ -45,8 +51,12 @@ export class TransitoPage implements OnInit {
   async buscar(){
     await this.presentLoading();
     (await this.cepredenacService.getTransitos(this.desde, this.hasta, this.pais)).subscribe((resp: any) => {
-      this.transitos = resp.data;
-      this.mostrarLista = true;
+      if (resp.status){
+        this.transitos = resp.data;
+        this.mostrarLista = true;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
       this.loadingController.dismiss();
     });
   }

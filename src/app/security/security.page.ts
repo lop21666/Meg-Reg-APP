@@ -69,9 +69,13 @@ export class SecurityPage implements OnInit {
 
   async getData() {
     (await this.userService.getPassword()).subscribe((resp: any) => {
-      this.perfilData = resp.data;
-      this.defaultValue(this.perfilData);
-      this.mostrarData = true;
+      if (resp.status){
+        this.perfilData = resp.data;
+        this.defaultValue(this.perfilData);
+        this.mostrarData = true;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
   }
 

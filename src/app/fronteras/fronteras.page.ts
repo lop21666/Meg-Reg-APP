@@ -18,14 +18,23 @@ export class FronterasPage implements OnInit {
   documentos;
 
   constructor(public modalController: ModalController, private cepredenacService: CepredenacService,
-              public loadingController: LoadingController, public alert: AlertService, private sanitizer: DomSanitizer) { }
+              public loadingController: LoadingController, public alert: AlertService, private sanitizer: DomSanitizer,
+              private alertService: AlertService) { }
 
   async ionViewDidEnter() {
-    (await this.cepredenacService.getFronteras(this.notificacion)).subscribe((resp: any)=>{
-      this.fronteras = resp.data;
+    (await this.cepredenacService.getFronteras(this.notificacion)).subscribe((resp: any) => {
+      if (resp.status){
+        this.fronteras = resp.data;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
-    (await this.cepredenacService.getDocumentos(this.notificacion)).subscribe((resp: any) =>{
-      this.documentos = resp.data;
+    (await this.cepredenacService.getDocumentos(this.notificacion)).subscribe((resp: any) => {
+      if (resp.status){
+        this.documentos = resp.data;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
     this.viewEntered = true;
     this.loadingController.dismiss();

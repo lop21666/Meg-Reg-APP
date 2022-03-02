@@ -62,10 +62,14 @@ export class PerfilPage implements OnInit {
 
   async getData() {
     (await this.userService.getPerfil()).subscribe((resp: any) => {
-      this.perfilData = resp.data;
-      this.defaultValue( this.perfilData );
-      this.urlFoto = resp.data.foto;
-      this.mostrarData = true;
+      if (resp.status){
+        this.perfilData = resp.data;
+        this.defaultValue( this.perfilData );
+        this.urlFoto = resp.data.foto;
+        this.mostrarData = true;
+      }else{
+        this.alertService.presentAlert('Ha ocurrido un error en el servidor, intente de nuevo más tarde.')
+      }
     });
   }
 
